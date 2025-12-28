@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.open.terminal.openterminal.WelcomeController"
+      alignment="CENTER"
+      spacing="20"
+      style="-fx-background-color: #2b2b2b;">
+
+    <padding>
+        <Insets top="50" right="50" bottom="50" left="50"/>
+    </padding>
+
+    <Label text="SSH 终端管理器" textFill="white">
+        <font>
+            <Font name="System Bold" size="32"/>
+        </font>
+    </Label>
+
+    <Label text="点击下方按钮创建新的SSH连接" textFill="lightgray">
+        <font>
+            <Font size="16"/>
+        </font>
+    </Label>
+
+    <Button text="创建新连接"
+            onAction="#handleCreateConnection"
+            prefWidth="200"
+            prefHeight="50"
+            style="-fx-background-color: #4a90e2; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;"/>
+
+</VBox>

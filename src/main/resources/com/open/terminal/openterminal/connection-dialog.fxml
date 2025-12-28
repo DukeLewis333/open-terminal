@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.open.terminal.openterminal.ConnectionDialogController"
+            style="-fx-background-color: #3c3f41;"
+            prefWidth="450"
+            prefHeight="350">
+
+    <center>
+        <GridPane hgap="10" vgap="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- 连接名称 -->
+            <Label text="连接名称:" textFill="white"
+                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="nameField"
+                       promptText="例如: 生产服务器"
+                       style="-fx-background-color: #2b2b2b;
+                              -fx-text-fill: white;
+                              -fx-prompt-text-fill: gray;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <GridPane.margin>
+                    <Insets/>
+                </GridPane.margin>
+            </TextField>
+
+            <!-- 主机地址 -->
+            <Label text="主机地址:" textFill="white"
+                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="hostField"
+                       promptText="例如: 192.168.1.100"
+                       style="-fx-background-color: #2b2b2b;
+                              -fx-text-fill: white;
+                              -fx-prompt-text-fill: gray;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <!-- 端口 -->
+            <Label text="端口:" textFill="white"
+                   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="portField"
+                       text="22"
+                       style="-fx-background-color: #2b2b2b;
+                              -fx-text-fill: white;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <!-- 用户名 -->
+            <Label text="用户名:" textFill="white"
+                   GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="userField"
+                       promptText="例如: root"
+                       style="-fx-background-color: #2b2b2b;
+                              -fx-text-fill: white;
+                              -fx-prompt-text-fill: gray;"
+                       GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            <!-- 密码 -->
+            <Label text="密码:" textFill="white"
+                   GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <PasswordField fx:id="passField"
+                           style="-fx-background-color: #2b2b2b;
+                                  -fx-text-fill: white;
+                                  -fx-prompt-text-fill: gray;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+            <!-- 按钮区域 -->
+            <HBox spacing="10" alignment="CENTER_RIGHT"
+                  GridPane.columnIndex="0" GridPane.rowIndex="5"
+                  GridPane.columnSpan="2">
+                <GridPane.margin>
+                    <Insets top="10"/>
+                </GridPane.margin>
+
+                <Button text="取消"
+                        onAction="#handleCancel"
+                        prefWidth="80"
+                        style="-fx-background-color: #666;
+                               -fx-text-fill: white;
+                               -fx-cursor: hand;"/>
+
+                <Button text="连接"
+                        onAction="#handleConnect"
+                        prefWidth="80"
+                        style="-fx-background-color: #4a90e2;
+                               -fx-text-fill: white;
+                               -fx-cursor: hand;"/>
+            </HBox>
+
+            <columnConstraints>
+                <ColumnConstraints minWidth="80" prefWidth="100"/>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+            </columnConstraints>
+        </GridPane>
+    </center>
+
+</BorderPane>
