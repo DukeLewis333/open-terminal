@@ -130,6 +130,43 @@
             <artifactId>jsch</artifactId>
             <version>0.1.55</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jetbrains.jediterm/jediterm-ui -->
+        <dependency>
+            <groupId>org.jetbrains.jediterm</groupId>
+            <artifactId>jediterm-ui</artifactId>
+            <version>3.57</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains</groupId>
+                    <artifactId>annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jetbrains.jediterm</groupId>
+                    <artifactId>jediterm-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.jediterm</groupId>
+            <artifactId>jediterm-core</artifactId>
+            <version>3.57</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains</groupId>
+                    <artifactId>annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -186,7 +223,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>${main.class}</mainClass>
                                 </transformer>
                             </transformers>
@@ -227,7 +265,7 @@
                     <winDirChooser>true</winDirChooser>
 
                     <!-- 可选：应用图标 -->
-                     <icon>src/main/resources/icon/app.ico</icon>
+                    <icon>src/main/resources/icon/app.ico</icon>
                 </configuration>
             </plugin>
         </plugins>

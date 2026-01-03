@@ -9,42 +9,91 @@
 
 <SplitPane dividerPositions="0.2" style="-fx-background-color: #1e1e1e; -fx-padding: 0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.open.terminal.openterminal.TerminalController">
 
-    <!-- ================= 左侧：连接信息侧栏 ================= -->
-    <VBox spacing="10" style="-fx-background-color: #252526;">
+    <!-- ================= 左侧：连接信息与系统监控 ================= -->
+    <VBox spacing="15" style="-fx-background-color: #252526;">
         <padding>
             <Insets bottom="10" left="10" right="10" top="15" />
         </padding>
 
-        <Label text="连接详情" textFill="#a9b7c6">
-            <font>
-                <Font name="System Bold" size="14" />
-            </font>
-        </Label>
-
-        <!-- 具体信息展示 -->
+        <!-- 1. 连接详情 -->
         <VBox spacing="8">
+            <Label text="连接详情" textFill="#a9b7c6">
+                <font>
+                    <Font name="System Bold" size="14" />
+                </font>
+            </Label>
             <VBox spacing="2">
                 <Label style="-fx-font-size: 10px;" text="主机 Host:" textFill="gray" />
-                <Label fx:id="hostLabel" text="192.168.x.x" textFill="#e8e8e8" />
+                <Label fx:id="hostLabel" text="-" textFill="#e8e8e8" />
             </VBox>
-
             <VBox spacing="2">
-                <Label style="-fx-font-size: 10px;" text="端口 Port:" textFill="gray" />
-                <Label fx:id="portLabel" text="22" textFill="#e8e8e8" />
+                <Label style="-fx-font-size: 10px;" text="主机 Port:" textFill="gray" />
+                <Label fx:id="portLabel" text="-" textFill="#e8e8e8" />
             </VBox>
-
             <VBox spacing="2">
                 <Label style="-fx-font-size: 10px;" text="用户 User:" textFill="gray" />
-                <Label fx:id="userLabel" text="root" textFill="#e8e8e8" />
+                <Label fx:id="userLabel" text="-" textFill="#e8e8e8" />
             </VBox>
-
-            <Region prefHeight="10" />
-
             <VBox spacing="2">
                 <Label style="-fx-font-size: 10px;" text="状态 Status:" textFill="gray" />
-                <Label fx:id="statusLabel" style="-fx-font-weight: bold;" text="已连接" textFill="#4caf50" />
+                <Label fx:id="statusLabel" style="-fx-font-weight: bold;" text="未连接" textFill="#4caf50" />
             </VBox>
         </VBox>
+
+        <!-- 分割线 -->
+        <Region style="-fx-background-color: #3e3e42; -fx-min-height: 1px; -fx-max-height: 1px;" />
+
+        <!-- 2. 系统监控 -->
+        <VBox spacing="10">
+            <Label text="系统监控" textFill="#a9b7c6">
+                <font>
+                    <Font name="System Bold" size="14" />
+                </font>
+            </Label>
+
+            <!-- CPU -->
+            <VBox spacing="3">
+                <HBox>
+                    <Label style="-fx-font-size: 11px;" text="CPU 使用率" textFill="gray" />
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="cpuLabel" style="-fx-font-size: 11px;" text="0%" textFill="#e8e8e8" />
+                </HBox>
+                <ProgressBar fx:id="cpuProgress" prefHeight="8" prefWidth="200" progress="0.0" style="-fx-accent: #4a90e2;" />
+            </VBox>
+
+            <!-- 内存 -->
+            <VBox spacing="3">
+                <HBox>
+                    <Label style="-fx-font-size: 11px;" text="内存 (RAM)" textFill="gray" />
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="ramLabel" style="-fx-font-size: 11px;" text="0/0 GB" textFill="#e8e8e8" />
+                </HBox>
+                <ProgressBar fx:id="ramProgress" prefHeight="8" prefWidth="200" progress="0.0" style="-fx-accent: #9b59b6;" />
+            </VBox>
+
+            <!-- 磁盘 -->
+            <VBox spacing="3">
+                <HBox>
+                    <Label style="-fx-font-size: 11px;" text="磁盘 (Disk /)" textFill="gray" />
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="diskLabel" style="-fx-font-size: 11px;" text="0%" textFill="#e8e8e8" />
+                </HBox>
+                <ProgressBar fx:id="diskProgress" prefHeight="8" prefWidth="200" progress="0.0" style="-fx-accent: #2ecc71;" />
+            </VBox>
+
+            <!-- 网络 -->
+            <VBox spacing="5" style="-fx-background-color: #2b2b2b; -fx-padding: 5; -fx-background-radius: 3;">
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="⬇" textFill="#2ecc71" style="-fx-font-size: 10px;"/>
+                    <Label fx:id="netDownLabel" text="0 KB/s" textFill="#e8e8e8" style="-fx-font-size: 11px;"/>
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="⬆" textFill="#e67e22" style="-fx-font-size: 10px;"/>
+                    <Label fx:id="netUpLabel" text="0 KB/s" textFill="#e8e8e8" style="-fx-font-size: 11px;"/>
+                </HBox>
+            </VBox>
+        </VBox>
+
     </VBox>
 
     <!-- ================= 右侧区域：包含终端和文件管理 ================= -->
@@ -53,36 +102,21 @@
 
         <!-- === 1. 上半部分：终端交互区  === -->
         <BorderPane style="-fx-background-color: #1e1e1e;">
-            <center>
-                <TextArea fx:id="terminalOutput" editable="false" style="-fx-control-inner-background: #1e1e1e; -fx-text-fill: #00ff00; -fx-font-family: Courier New; -fx-background-insets: 0;" wrapText="true">
-                    <font>
-                        <Font name="Courier New" size="14" />
-                    </font>
-                </TextArea>
-            </center>
+            <top>
+                <HBox spacing="10"
+                      alignment="CENTER_LEFT"
+                      style="-fx-padding: 8 12; -fx-background-color: #2b2b2b; -fx-border-color: #3c3f41; -fx-border-width: 0 0 1 0;">
 
-            <bottom>
-                <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-background-color: #2b2b2b;">
-                    <padding>
-                        <Insets bottom="5" left="5" right="5" top="5" />
-                    </padding>
+                    <Button text="🕒 历史命令"
+                            onAction="#handleShowHistory"
+                            style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;"
+                    />
 
-                    <Label text="&gt;" textFill="lightgreen">
-                        <font>
-                            <Font name="Courier New" size="14" />
-                        </font>
-                    </Label>
-
-                    <TextField fx:id="commandInput" promptText="输入命令..." style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-prompt-text-fill: gray; -fx-font-family: Courier New;">
-                        <font>
-                            <Font name="Courier New" size="14" />
-                        </font>
-                        <HBox.hgrow>
-                            <Priority fx:constant="ALWAYS" />
-                        </HBox.hgrow>
-                    </TextField>
                 </HBox>
-            </bottom>
+            </top>
+            <center>
+                <StackPane fx:id="terminalContainer" style="-fx-background-color: #000000;"/>
+            </center>
         </BorderPane>
 
         <!-- === 2. 下半部分：文件目录 (TitledPane 实现可收起) === -->
