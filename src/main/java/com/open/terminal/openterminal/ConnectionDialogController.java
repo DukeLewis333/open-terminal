@@ -52,7 +52,7 @@ public class ConnectionDialogController {
 
         try {
             int portNum = Integer.parseInt(port);
-            mainController.createSSHConnection(name, host, portNum, user, pass);
+            mainController.connect(name, host, portNum, user, pass);
             dialogStage.close();
         } catch (NumberFormatException e) {
             showAlert("错误", "端口必须是数字");

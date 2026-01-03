@@ -10,6 +10,8 @@
 <?import javafx.scene.text.Font?>
 
 <!-- 主窗口只负责顶部工具栏和Tab容器 -->
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Tab?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.open.terminal.openterminal.MainController"
@@ -30,10 +32,6 @@
             </Label>
 
             <Region HBox.hgrow="ALWAYS"/>
-
-            <Button text="+ 新建连接"
-                    onAction="#handleNewConnection"
-                    style="-fx-background-color: #4a90e2; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;"/>
         </HBox>
     </top>
 
@@ -41,7 +39,15 @@
     <center>
         <TabPane fx:id="tabPane"
                  tabClosingPolicy="ALL_TABS"
-                 style="-fx-background-color: #2b2b2b;"/>
+                 style="-fx-background-color: #2b2b2b;">
+            <tabs>
+                <!-- 特殊的添加按钮 Tab，永远在最后 -->
+                <Tab fx:id="newConnectionTab"
+                     text="+"
+                     closable="false"
+                     style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;"/>
+            </tabs>
+        </TabPane>
     </center>
 
 </BorderPane>
