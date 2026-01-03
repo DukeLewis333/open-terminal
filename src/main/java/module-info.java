@@ -15,6 +15,7 @@ module com.open.terminal.openterminal {
     requires javafx.swing;
     requires org.slf4j;
     requires jsch;
+    requires annotations;
 
     opens com.open.terminal.openterminal to javafx.fxml;
     exports com.open.terminal.openterminal;

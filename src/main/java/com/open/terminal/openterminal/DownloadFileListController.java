@@ -5,13 +5,22 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Comparator;
 
 /**
  * @description:
@@ -92,8 +101,31 @@ public class DownloadFileListController {
     }
 
     @FXML
-    public void handleClearCompleted() {
-        // 清空逻辑
+    public void handleClearCompleted() throws IOException {
+        // 清空文件列表逻辑
+        log.info("清空已完成的下载任务");
+        downloadTable.setItems(FXCollections.observableArrayList());
+        Path dir = FileUtil.localDownloadDir;
+        if (Files.notExists(dir) || !Files.isDirectory(dir)) {
+            return;
+        }
+
+        Files.walkFileTree(dir, new SimpleFileVisitor<>() {
+
+            @NotNull
+            @Override
+            public FileVisitResult visitFile(@NotNull Path file, @NotNull BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @NotNull
+            @Override
+            public FileVisitResult postVisitDirectory(@NotNull Path dir, @Nullable IOException exc) throws IOException {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
     }
 
     public static class DownloadTask {
