@@ -55,7 +55,7 @@ public class MainController {
 
             tabPane.getTabs().add(welcomeTab);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("无法加载欢迎页面: {}", e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class MainController {
 
             dialog.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("无法打开连接对话框: {}", e.getMessage());
         }
     }
 
@@ -104,7 +104,6 @@ public class MainController {
             sshTab.setOnClosed(e -> controller.disconnect());
 
         } catch (IOException e) {
-            e.printStackTrace();
             log.error("无法创建终端标签页: {}", e.getMessage());
             showAlert("错误", "无法创建终端标签页: " + e.getMessage());
         }

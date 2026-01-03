@@ -140,7 +140,7 @@ public class TerminalController {
                 });
 
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("下载远程文件失败: {}", e.getMessage());
                 Platform.runLater(() -> appendOutput("操作失败：" + e.getMessage() + "\n"));
             }
         });
@@ -220,7 +220,7 @@ public class TerminalController {
             dialog.showAndWait();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("无法打开下载列表: {}", e.getMessage());
             appendOutput("无法打开下载列表: " + e.getMessage() + "\n");
         }
     }
@@ -255,8 +255,8 @@ public class TerminalController {
                         handleRefreshFiles();
                     });
                 } catch (Exception e) {
+                    log.error("上传文件失败: {}", e.getMessage());
                     Platform.runLater(() -> appendOutput("上传失败: " + e.getMessage() + "\n"));
-                    e.printStackTrace();
                 }
             });
         }
@@ -314,12 +314,12 @@ public class TerminalController {
                 ThreadUtil.submitTask(() -> readOutput(inputStream));
 
             } catch (Exception e) {
+                log.error("SSH 连接失败: {}", e.getMessage());
                 Platform.runLater(() -> {
                     appendOutput("连接失败: " + e.getMessage() + "\n");
                     statusLabel.setText("连接失败");
                     statusLabel.setStyle("-fx-text-fill: red;");
                 });
-                e.printStackTrace();
             }
         });
     }
@@ -381,8 +381,8 @@ public class TerminalController {
                 });
 
             } catch (SftpException e) {
+                log.error("无法获取文件列表: {}", e.getMessage());
                 Platform.runLater(() -> appendOutput("无法获取文件列表: " + e.getMessage() + "\n"));
-                e.printStackTrace();
             }
         });
     }
@@ -408,7 +408,8 @@ public class TerminalController {
                 Thread.sleep(100);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("读取终端输出失败: {}", e.getMessage());
+            Platform.runLater(() -> appendOutput("读取终端输出失败: " + e.getMessage() + "\n"));
         }
     }
 
@@ -422,7 +423,8 @@ public class TerminalController {
                     outputStream.flush();
                     Platform.runLater(() -> commandInput.clear());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error("发送命令失败: {}", e.getMessage());
+                    Platform.runLater(() -> appendOutput("发送命令失败: " + e.getMessage() + "\n"));
                 }
             });
         }

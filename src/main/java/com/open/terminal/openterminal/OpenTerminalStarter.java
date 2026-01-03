@@ -30,8 +30,6 @@ public class OpenTerminalStarter extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
-            // 这会显示详细错误
-            e.printStackTrace();
             log.error("OpenTerminalStarter, start详细错误: {}", e.getMessage());
             if (e.getCause() != null) {
                 log.error("OpenTerminalStarter, start错误原因: {}", e.getCause().getMessage());

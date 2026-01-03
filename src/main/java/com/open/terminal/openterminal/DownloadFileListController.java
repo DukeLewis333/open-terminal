@@ -64,7 +64,7 @@ public class DownloadFileListController {
             }
         });
 
-        // 2. 操作按钮 (这里简化为打开文件所在的文件夹)
+        // 2. 操作按钮
         actionCol.setCellFactory(column -> new TableCell<DownloadTask, String>() {
             private final Button btn = new Button("打开");
             {
