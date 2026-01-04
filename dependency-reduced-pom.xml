@@ -4,7 +4,7 @@
   <groupId>com.open.terminal</groupId>
   <artifactId>open-terminal</artifactId>
   <name>open-terminal</name>
-  <version>1.0.0</version>
+  <version>0.0.1</version>
   <build>
     <resources>
       <resource>
@@ -14,7 +14,7 @@
         </includes>
       </resource>
     </resources>
-    <finalName>open-terminal-1.0.0</finalName>
+    <finalName>open-terminal-0.0.1</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
