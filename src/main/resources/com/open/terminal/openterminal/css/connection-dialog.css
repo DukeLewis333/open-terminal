@@ -1,0 +1,90 @@
+/* ==================== 弹窗 (Dialog) 专用样式 ==================== */
+
+/* 弹窗根容器 */
+.dialog-root {
+    -fx-background-color: #FFF8E1; /* 统一的暖米色背景 */
+    -fx-border-color: #D7CCC8;    /* 外围加一圈浅咖色边框 */
+    -fx-border-width: 1;
+}
+
+/* 标题样式 */
+.dialog-title {
+    -fx-text-fill: #4E342E;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-padding: 20 0 5 0; /* 上边距 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+
+/* 表单标签 (左侧文字) */
+.form-label {
+    -fx-text-fill: #5D4037; /* 深褐色 */
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* 输入框 (TextField/PasswordField) */
+.form-field {
+    -fx-background-color: #FFFFFF; /* 纯白背景 */
+    -fx-background-radius: 8;      /* 圆角 */
+    -fx-border-color: #D7CCC8;     /* 浅咖色边框 */
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 8 10 8 10;        /* 舒适的内边距 */
+    -fx-text-fill: #3E2723;        /* 输入文字颜色 */
+    -fx-prompt-text-fill: #BCAAA4; /* 提示文字颜色 */
+    -fx-font-size: 13px;
+}
+
+/* 输入框聚焦状态 */
+.form-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FF8F00; /* 聚焦时变橙色 */
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 143, 0, 0.2), 5, 0, 0, 0); /* 橙色光晕 */
+}
+
+/* 底部按钮栏背景 */
+.dialog-button-bar {
+    -fx-background-color: transparent;
+}
+
+/* === 弹窗专用大按钮 === */
+
+/* “连接”按钮 (Primary) */
+.primary-button-large {
+    -fx-background-color: #FF8F00; /* 暖橙色 */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;     /* 大圆角 */
+    -fx-padding: 8 30 8 30;        /* 宽一点 */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 143, 0, 0.4), 5, 0, 0, 3);
+}
+
+.primary-button-large:hover {
+    -fx-background-color: #FF6F00; /* 悬停加深 */
+    -fx-translate-y: -1;           /* 微微上浮 */
+}
+
+.primary-button-large:pressed {
+    -fx-background-color: #E65100;
+    -fx-translate-y: 1;
+}
+
+/* “取消”按钮 (Secondary) */
+.secondary-button-large {
+    -fx-background-color: #FFFFFF; /* 白底 */
+    -fx-text-fill: #5D4037;        /* 深褐字 */
+    -fx-border-color: #A1887F;     /* 灰色边框 */
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-font-size: 14px;
+    -fx-padding: 7 25 7 25;        /* 边框占1px，padding稍微减小 */
+    -fx-cursor: hand;
+}
+
+.secondary-button-large:hover {
+    -fx-background-color: #F5F5F5; /* 悬停变灰白 */
+    -fx-text-fill: #3E2723;
+}

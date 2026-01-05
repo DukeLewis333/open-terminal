@@ -1,0 +1,119 @@
+/* --- 主窗口根布局 --- */
+.main-root {
+    -fx-background-color: #FFF8E1; /* 统一的暖米色背景 */
+}
+
+/* --- 顶部 Header --- */
+.app-header {
+    -fx-background-color: #FFFFFF; /* 纯白顶栏，与内容区分 */
+    -fx-padding: 10 20 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2); /* 极淡的阴影 */
+    -fx-border-color: transparent transparent #EFEBE9 transparent;
+    -fx-border-width: 1;
+}
+
+.app-motto {
+    -fx-text-fill: #FF8F00; /* 使用暖橙色作为格言颜色，提神 */
+    -fx-font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+/* --- TabPane 整体容器 --- */
+.main-tab-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10 0 0 0; /* 给Tab上方留一点呼吸空间 */
+}
+
+/* Tab 头部背景条 (包含所有标签的区域) */
+.main-tab-pane .tab-header-background {
+    -fx-background-color: transparent; /* 去除默认灰色背景 */
+}
+
+.main-tab-pane .tab-header-area {
+    -fx-padding: 0 10 0 10; /* Tab栏左右边距 */
+}
+
+/* --- 单个 Tab 样式 --- */
+.main-tab-pane .tab {
+    -fx-background-color: #EFEBE9; /* 未选中：浅咖色/灰色 */
+    -fx-background-radius: 10 10 0 0; /* 上方圆角 */
+    -fx-background-insets: 0 2 0 0; /* Tab之间的间隔 */
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+/* Tab 文字标签 */
+.main-tab-pane .tab .tab-label {
+    -fx-text-fill: #8D6E63; /* 未选中文字：柔和褐 */
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* --- 选中状态的 Tab --- */
+.main-tab-pane .tab:selected {
+    -fx-background-color: #FFFFFF; /* 选中变白，与内容融合 */
+    -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.05), 5, 0, 0, -2); /* 轻微浮起感 */
+}
+
+.main-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #FF8F00; /* 选中文字变橙 */
+}
+
+/* 鼠标悬停 Tab */
+.main-tab-pane .tab:hover {
+    -fx-background-color: #FFF3E0; /* 浅橙色 */
+}
+
+/* --- Tab 内容区域 --- */
+.main-tab-pane .tab-content-area {
+    -fx-background-color: #FFFFFF; /* 内容区域纯白 */
+    -fx-background-radius: 0; /* 直角，与Tab底部衔接 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 5, 0, 0, 0);
+    -fx-border-color: #EFEBE9 transparent transparent transparent; /* 仅顶部有一条淡线 */
+}
+
+/* --- 特殊处理 "+" 号 Tab --- */
+/* 1. 容器样式：控制内边距，但不直接控制字号 */
+.plus-tab {
+    /* 稍微减小内边距，因为字大了，避免把 Tab 撑得过高 */
+    -fx-padding: 2 8 2 8;
+}
+
+/* 2. 核心修复：直接选中 plus-tab 下面的 tab-label 进行字号覆盖 */
+.plus-tab .tab-label {
+    -fx-font-size: 24px !important; /* 加大字号 */
+    -fx-font-family: "Arial", sans-serif; /* 使用通用字体确保符号居中 */
+    -fx-font-weight: none !important;
+    -fx-text-fill: #5D4037;
+}
+
+/* 3. 选中状态微调 */
+.plus-tab:selected {
+    -fx-background-color: #FFE0B2;
+}
+
+/* 4. 悬停状态：让加号变色 */
+.plus-tab:hover .tab-label {
+    -fx-text-fill: #FF6F00;
+}
+
+/* --- 关闭按钮 (x) --- */
+.main-tab-pane .tab-close-button {
+    -fx-background-color: #BCAAA4; /* 默认关闭按钮颜色 */
+    /*-fx-shape: "M 0,0 H1 L 4,3 L 7,0 H8 V1 L 5,4 L 8,7 V8 H7 L 4,5 L 1,8 H0 V7 L 3,4 L 0,1 Z";*/
+    /*-fx-scale-shape: true;*/
+    -fx-size: 8px;
+}
+
+.main-tab-pane .tab-close-button:hover {
+    -fx-background-color: #FF5252; /* 悬停变成红色 */
+}
+
+/* 去除 Tab Header 被选中时的聚焦框 (蓝色/灰色虚线) */
+.clean-tab {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0; /* 移除背景内嵌边距 */
+}

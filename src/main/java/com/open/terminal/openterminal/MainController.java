@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -72,6 +73,8 @@ public class MainController {
             controller.setMainController(this);
 
             Tab tab = new Tab("新连接");
+            // 添加自定义样式类
+            tab.getStyleClass().add("clean-tab");
             tab.setContent(content);
             // 给这个 Tab 一个特殊的 ID 或 UserData，方便后续识别（可选）
             tab.setUserData(SavedConnection.CONN_MANAGER);
@@ -120,6 +123,8 @@ public class MainController {
             terminalController.connectSSH(host, port, user, password);
 
             Tab newTerminalTab = new Tab(name);
+            // 添加自定义样式类
+            newTerminalTab.getStyleClass().add("clean-tab");
             newTerminalTab.setContent(terminalContent);
 
             // A. 获取当前正在操作的 Tab (也就是那个连接管理器 Tab)

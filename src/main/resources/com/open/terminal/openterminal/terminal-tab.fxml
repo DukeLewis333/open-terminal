@@ -5,91 +5,87 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!-- 根节点改为 SplitPane，用于左右分割 (左侧信息栏 | 右侧终端与文件) -->
-
-<SplitPane dividerPositions="0.2" style="-fx-background-color: #1e1e1e; -fx-padding: 0;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.open.terminal.openterminal.TerminalController">
+<!-- 根节点改为 SplitPane，引用外部 CSS -->
+<SplitPane dividerPositions="0.22"
+           styleClass="main-split-pane"
+           stylesheets="@./css/terminal-tab.css"
+           xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.open.terminal.openterminal.TerminalController">
 
     <!-- ================= 左侧：连接信息与系统监控 ================= -->
-    <VBox spacing="15" style="-fx-background-color: #252526;">
+    <VBox spacing="20" styleClass="sidebar-container">
         <padding>
-            <Insets bottom="10" left="10" right="10" top="15" />
+            <Insets bottom="20" left="15" right="15" top="20" />
         </padding>
 
-        <!-- 1. 连接详情 -->
-        <VBox spacing="8">
-            <Label text="连接详情" textFill="#a9b7c6">
-                <font>
-                    <Font name="System Bold" size="14" />
-                </font>
-            </Label>
-            <VBox spacing="2">
-                <Label style="-fx-font-size: 10px;" text="主机 Host:" textFill="gray" />
-                <Label fx:id="hostLabel" text="-" textFill="#e8e8e8" />
-            </VBox>
-            <VBox spacing="2">
-                <Label style="-fx-font-size: 10px;" text="主机 Port:" textFill="gray" />
-                <Label fx:id="portLabel" text="-" textFill="#e8e8e8" />
-            </VBox>
-            <VBox spacing="2">
-                <Label style="-fx-font-size: 10px;" text="用户 User:" textFill="gray" />
-                <Label fx:id="userLabel" text="-" textFill="#e8e8e8" />
-            </VBox>
-            <VBox spacing="2">
-                <Label style="-fx-font-size: 10px;" text="状态 Status:" textFill="gray" />
-                <Label fx:id="statusLabel" style="-fx-font-weight: bold;" text="未连接" textFill="#4caf50" />
-            </VBox>
+        <!-- 1. 连接详情卡片 -->
+        <VBox spacing="10" styleClass="info-card">
+            <Label text="连接详情" styleClass="section-title"/>
+
+            <GridPane vgap="5" hgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="60"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="Host:" styleClass="info-label-key" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="hostLabel" text="-" styleClass="info-label-value" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Port:" styleClass="info-label-key" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="portLabel" text="-" styleClass="info-label-value" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="User:" styleClass="info-label-key" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="userLabel" text="-" styleClass="info-label-value" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Status:" styleClass="info-label-key" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="statusLabel" text="未连接" styleClass="status-label-off" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            </GridPane>
         </VBox>
 
-        <!-- 分割线 -->
-        <Region style="-fx-background-color: #3e3e42; -fx-min-height: 1px; -fx-max-height: 1px;" />
-
-        <!-- 2. 系统监控 -->
-        <VBox spacing="10">
-            <Label text="系统监控" textFill="#a9b7c6">
-                <font>
-                    <Font name="System Bold" size="14" />
-                </font>
-            </Label>
+        <!-- 2. 系统监控卡片 -->
+        <VBox spacing="15" styleClass="info-card" VBox.vgrow="ALWAYS">
+            <Label text="系统监控" styleClass="section-title"/>
 
             <!-- CPU -->
-            <VBox spacing="3">
+            <VBox spacing="5">
                 <HBox>
-                    <Label style="-fx-font-size: 11px;" text="CPU 使用率" textFill="gray" />
+                    <Label text="CPU" styleClass="info-label-key" />
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label fx:id="cpuLabel" style="-fx-font-size: 11px;" text="0%" textFill="#e8e8e8" />
+                    <Label fx:id="cpuLabel" text="0%" styleClass="monitor-value" />
                 </HBox>
-                <ProgressBar fx:id="cpuProgress" prefHeight="8" prefWidth="200" progress="0.0" style="-fx-accent: #4a90e2;" />
+                <ProgressBar fx:id="cpuProgress" progress="0.0" styleClass="monitor-bar-cpu" prefWidth="200" />
             </VBox>
 
             <!-- 内存 -->
-            <VBox spacing="3">
+            <VBox spacing="5">
                 <HBox>
-                    <Label style="-fx-font-size: 11px;" text="内存 (RAM)" textFill="gray" />
+                    <Label text="内存 (RAM)" styleClass="info-label-key" />
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label fx:id="ramLabel" style="-fx-font-size: 11px;" text="0/0 GB" textFill="#e8e8e8" />
+                    <Label fx:id="ramLabel" text="0/0 GB" styleClass="monitor-value" />
                 </HBox>
-                <ProgressBar fx:id="ramProgress" prefHeight="8" prefWidth="200" progress="0.0" style="-fx-accent: #9b59b6;" />
+                <ProgressBar fx:id="ramProgress" progress="0.0" styleClass="monitor-bar-ram" prefWidth="200" />
             </VBox>
 
             <!-- 磁盘 -->
-            <VBox spacing="3">
+            <VBox spacing="5">
                 <HBox>
-                    <Label style="-fx-font-size: 11px;" text="磁盘 (Disk /)" textFill="gray" />
+                    <Label text="磁盘 (Disk /)" styleClass="info-label-key" />
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label fx:id="diskLabel" style="-fx-font-size: 11px;" text="0%" textFill="#e8e8e8" />
+                    <Label fx:id="diskLabel" text="0%" styleClass="monitor-value" />
                 </HBox>
-                <ProgressBar fx:id="diskProgress" prefHeight="8" prefWidth="200" progress="0.0" style="-fx-accent: #2ecc71;" />
+                <ProgressBar fx:id="diskProgress" progress="0.0" styleClass="monitor-bar-disk" prefWidth="200" />
             </VBox>
 
-            <!-- 网络 -->
-            <VBox spacing="5" style="-fx-background-color: #2b2b2b; -fx-padding: 5; -fx-background-radius: 3;">
-                <HBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="⬇" textFill="#2ecc71" style="-fx-font-size: 10px;"/>
-                    <Label fx:id="netDownLabel" text="0 KB/s" textFill="#e8e8e8" style="-fx-font-size: 11px;"/>
+            <!-- 网络监控块 -->
+            <VBox spacing="8" styleClass="network-box">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="⬇" styleClass="net-icon-down"/>
+                    <Label fx:id="netDownLabel" text="0 KB/s" styleClass="net-value"/>
                 </HBox>
-                <HBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="⬆" textFill="#e67e22" style="-fx-font-size: 10px;"/>
-                    <Label fx:id="netUpLabel" text="0 KB/s" textFill="#e8e8e8" style="-fx-font-size: 11px;"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="⬆" styleClass="net-icon-up"/>
+                    <Label fx:id="netUpLabel" text="0 KB/s" styleClass="net-value"/>
                 </HBox>
             </VBox>
         </VBox>
@@ -97,58 +93,51 @@
     </VBox>
 
     <!-- ================= 右侧区域：包含终端和文件管理 ================= -->
-    <!-- 垂直 SplitPane：上方终端，下方文件 -->
-    <SplitPane dividerPositions="0.65" orientation="VERTICAL" style="-fx-background-color: #1e1e1e; -fx-padding: 0;">
+    <SplitPane dividerPositions="0.65" orientation="VERTICAL" styleClass="right-split-pane">
 
         <!-- === 1. 上半部分：终端交互区  === -->
-        <BorderPane style="-fx-background-color: #1e1e1e;">
+        <BorderPane styleClass="terminal-pane-wrapper">
             <top>
-                <HBox spacing="10"
-                      alignment="CENTER_LEFT"
-                      style="-fx-padding: 8 12; -fx-background-color: #2b2b2b; -fx-border-color: #3c3f41; -fx-border-width: 0 0 1 0;">
-
-                    <Button text="🕒 历史命令"
-                            onAction="#handleShowHistory"
-                            style="-fx-background-color: #3c3f41; -fx-text-fill: white; -fx-cursor: hand;"
-                    />
-
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="terminal-toolbar">
+                    <Button text="🕒 历史命令" onAction="#handleShowHistory" styleClass="toolbar-button"/>
+                    <Region HBox.hgrow="ALWAYS"/>
                 </HBox>
             </top>
             <center>
-                <StackPane fx:id="terminalContainer" style="-fx-background-color: #000000;"/>
+                <StackPane fx:id="terminalContainer" style="-fx-background-color: white;"/>
             </center>
         </BorderPane>
 
-        <!-- === 2. 下半部分：文件目录 (TitledPane 实现可收起) === -->
-        <TitledPane fx:id="filePanel" style="-fx-text-fill: #a9b7c6;" text="文件系统 (File System)">
-
+        <!-- === 2. 下半部分：文件目录 === -->
+        <TitledPane fx:id="filePanel" text="文件系统 (File System)" styleClass="warm-titled-pane" animated="true">
             <content>
-                <BorderPane style="-fx-background-color: #2b2b2b;">
+                <BorderPane styleClass="file-browser-pane">
                     <!-- 文件工具栏 -->
                     <top>
-                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #323232; -fx-padding: 5;">
-                            <Label text="路径:" textFill="gray" />
-                            <Label fx:id="currentPathLabel" style="-fx-font-weight: bold;" text="/home/" textFill="#e8e8e8" />
+                        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="file-toolbar">
+                            <Label text="当前路径:" styleClass="path-label-key" />
+                            <Label fx:id="currentPathLabel" text="/home/" styleClass="path-label-value" HBox.hgrow="ALWAYS"/>
 
                             <Region HBox.hgrow="ALWAYS" />
 
-                            <Button onAction="#handleFileList" text="文件列表" style="fx-text-fill: white; -fx-font-size: 11px; -fx-cursor: hand;"/>
-                            <Button onAction="#handleUploadFile" style="-fx-background-color: #4a90e2; -fx-text-fill: white; -fx-font-size: 11px; -fx-cursor: hand;" text="⬆ 上传文件" />
-                            <Button onAction="#handleRefreshFiles" style="-fx-background-color: #444; -fx-text-fill: white; -fx-font-size: 11px; -fx-cursor: hand;" text="⟳ 刷新" />
+                            <Button text="📂 文件列表" onAction="#handleFileList" styleClass="secondary-button"/>
+
+                            <Button text="⟳ 刷新" onAction="#handleRefreshFiles" styleClass="secondary-button"/>
+                            <Button text="⬆ 上传文件" onAction="#handleUploadFile" styleClass="primary-button-small"/>
                         </HBox>
                     </top>
 
                     <!-- 文件列表 -->
                     <center>
-                        <TableView fx:id="fileTableView" style="-fx-background-color: #2b2b2b; -fx-control-inner-background: #2b2b2b;">
+                        <TableView fx:id="fileTableView" styleClass="modern-table">
                             <placeholder>
-                                <Label text="正在加载目录..." textFill="gray" />
+                                <Label text="正在加载目录..." styleClass="placeholder-label" />
                             </placeholder>
                             <columns>
-                                <TableColumn prefWidth="200" style="-fx-alignment: CENTER-LEFT;" text="名称" />
-                                <TableColumn prefWidth="80" style="-fx-alignment: CENTER-RIGHT;" text="大小" />
-                                <TableColumn prefWidth="100" style="-fx-alignment: CENTER;" text="权限" />
-                                <TableColumn prefWidth="150" style="-fx-alignment: CENTER;" text="修改时间" />
+                                <TableColumn text="名称" prefWidth="200" />
+                                <TableColumn text="大小" prefWidth="80" style="-fx-alignment: CENTER-RIGHT;" />
+                                <TableColumn text="权限" prefWidth="100" style="-fx-alignment: CENTER;" />
+                                <TableColumn text="修改时间" prefWidth="150" style="-fx-alignment: CENTER;" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
