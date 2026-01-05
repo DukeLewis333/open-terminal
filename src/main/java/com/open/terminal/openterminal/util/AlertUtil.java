@@ -3,12 +3,14 @@ package com.open.terminal.openterminal.util;
 import javafx.scene.control.Alert;
 
 /**
- * @description: TODO
+ * @description: 提示工具类
  * @author huangjialong
  * @date 2026/1/4 16:57
  * @version 1.0
  */
 public class AlertUtil {
+    private AlertUtil() {}
+
     public static final String ERROR_TITLE = "错误";
     public static void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

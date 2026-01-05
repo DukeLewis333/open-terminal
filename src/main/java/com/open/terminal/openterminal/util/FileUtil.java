@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.text.CharacterIterator;
 
 /**
- * @description:
+ * @description: 文件操作工具类
  * @author：dukelewis
  * @date: 2025/12/29
  * @Copyright： https://github.com/DukeLewis
@@ -20,6 +20,7 @@ public class FileUtil {
     // 定义本地下载目录
     public final static Path localDownloadDir = Paths.get(System.getProperty("java.io.tmpdir"), "remote-files");
 
+    private FileUtil() {}
 
     public static void openWithSystemChooser(File file) throws IOException {
         if (!Desktop.isDesktopSupported()) {

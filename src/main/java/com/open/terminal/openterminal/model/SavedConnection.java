@@ -2,16 +2,24 @@ package com.open.terminal.openterminal.model;
 
 import java.io.Serializable;
 import java.util.UUID;
-
+/**
+ * @description: 连接配置数据对象
+ * @author huangjialong
+ * @date 2026/1/4
+ * @version 1.0
+ */
 public class SavedConnection implements Serializable {
     public static final String CONN_MANAGER = "CONN_MANAGER";
     private String id;
-    private String name; // 连接名称 (如 "生产环境DB")
+    // 连接名称 (如 "生产环境DB")
+    private String name;
     private String host;
     private int port;
     private String user;
-    private String password; // 实际生产中建议加密存储
-    private long lastConnected; // 最后连接时间
+    // 实际生产中建议加密存储
+    private String password;
+    // 最后连接时间
+    private long lastConnected;
 
     public SavedConnection() {
         this.id = UUID.randomUUID().toString();

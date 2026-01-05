@@ -14,6 +14,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * @description: 连接信息管理功能类
+ * @author：dukelewis
+ * @date: 2026/1/4
+ * @Copyright： https://github.com/DukeLewis
+ */
 public class ConnectionManager {
     private static final Logger log = LoggerFactory.getLogger(ConnectionManager.class);
     private static final String FILE_NAME = "connections.json";
@@ -22,17 +28,23 @@ public class ConnectionManager {
     private final ObjectMapper mapper = new ObjectMapper();
     private List<SavedConnection> connections = new ArrayList<>();
 
+    public static class ConnectionManagerHolder {
+        private ConnectionManagerHolder() {}
+        private static final ConnectionManager INSTANCE = new ConnectionManager();
+    }
+
     private ConnectionManager() {
         load();
     }
 
-    public static synchronized ConnectionManager getInstance() {
-        if (instance == null) instance = new ConnectionManager();
-        return instance;
+    public static ConnectionManager getInstance() {
+        return ConnectionManagerHolder.INSTANCE;
     }
 
     private void load() {
-        if (!STORAGE_FILE.exists()) return;
+        if (!STORAGE_FILE.exists()) {
+            return;
+        }
         try {
             connections = mapper.readValue(STORAGE_FILE, new TypeReference<List<SavedConnection>>() {});
         } catch (IOException e) {

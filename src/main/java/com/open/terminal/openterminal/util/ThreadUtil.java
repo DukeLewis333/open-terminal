@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description:
+ * @description: 线程工具类
  * @author：dukelewis
  * @date: 2025/12/28
  * @Copyright： https://github.com/DukeLewis
@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 public class ThreadUtil {
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(ThreadUtil.class);
+
+    private ThreadUtil() {}
 
 
     /**

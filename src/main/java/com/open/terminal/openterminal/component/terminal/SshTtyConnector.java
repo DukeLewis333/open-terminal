@@ -11,7 +11,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-
+/**
+ * @description: ssh连接器
+ * @author huangjialong
+ * @date 2026/1/4
+ * @version 1.0
+ */
 public class SshTtyConnector implements TtyConnector {
     private static final Logger log = LoggerFactory.getLogger(SshTtyConnector.class);
 

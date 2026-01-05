@@ -4,7 +4,9 @@ import com.jcraft.jsch.*;
 import com.jediterm.terminal.ui.JediTermWidget;
 import com.open.terminal.openterminal.component.terminal.DefaultTerminalSettings;
 import com.open.terminal.openterminal.component.terminal.SshTtyConnector;
+import com.open.terminal.openterminal.fun.ExecCommandHistoryInterface;
 import com.open.terminal.openterminal.fun.FileProcessInterface;
+import com.open.terminal.openterminal.fun.SystemMonitorInterface;
 import com.open.terminal.openterminal.model.DownloadTask;
 import com.open.terminal.openterminal.model.RemoteFile;
 import com.open.terminal.openterminal.util.FileUtil;
@@ -38,8 +40,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-
-public class TerminalController implements FileProcessInterface {
+/**
+ * @description: 终端窗口控制器
+ * @author huangjialong
+ * @date 2025/12/29 00:41
+ * @version 1.0
+ */
+public class TerminalController implements FileProcessInterface, SystemMonitorInterface, ExecCommandHistoryInterface {
     private static final org.slf4j.Logger log =
             org.slf4j.LoggerFactory.getLogger(TerminalController.class);
 
@@ -514,7 +521,8 @@ public class TerminalController implements FileProcessInterface {
     /**
      * 加载指定路径的远程文件
      */
-    private void loadRemoteFiles(String path) {
+    @Override
+    public void loadRemoteFiles(String path) {
         if (sftpChannel == null || !sftpChannel.isConnected()) {
             return;
         }
@@ -580,7 +588,8 @@ public class TerminalController implements FileProcessInterface {
         });
     }
 
-    private void startSystemMonitoring() {
+    @Override
+    public void startSystemMonitoring() {
         isMonitoring = true;
         ThreadUtil.submitTask(() -> {
             try {
@@ -619,10 +628,8 @@ public class TerminalController implements FileProcessInterface {
         });
     }
 
-    /**
-     * 解析组合命令的返回结果并更新 UI
-     */
-    private void parseAndUpdateMonitor(String rawOutput) {
+    @Override
+    public void parseAndUpdateMonitor(String rawOutput) {
         try {
             log.info("监控命令输出:\n{}", rawOutput);
             String[] sections = rawOutput.split("#####");
@@ -782,10 +789,8 @@ public class TerminalController implements FileProcessInterface {
         loadRemoteHistory();
     }
 
-    /**
-     * 获取远程历史命令列表
-     */
-    private void loadRemoteHistory() {
+    @Override
+    public void loadRemoteHistory() {
         if (sftpChannel == null || !sftpChannel.isConnected()) {
             printErrorToTerminal("SFTP 未连接，无法获取历史记录");
             return;
@@ -828,13 +833,9 @@ public class TerminalController implements FileProcessInterface {
         });
     }
 
-    /**
-     * 解析流工具方法
-     * @param is 输入流
-     * @param isZsh 是否是 zsh (zsh 历史文件带有时间戳元数据，需要清洗)
-     */
-    private java.util.List<String> readHistoryStream(InputStream is, boolean isZsh) {
-        java.util.List<String> list = new ArrayList<>();
+    @Override
+    public List<String> readHistoryStream(InputStream is, boolean isZsh) {
+        List<String> list = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -858,7 +859,8 @@ public class TerminalController implements FileProcessInterface {
         return list;
     }
 
-    private void showHistoryDialog(java.util.List<String> commands) {
+    @Override
+    public void showHistoryDialog(List<String> commands) {
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("历史命令");
         dialog.initOwner(terminalContainer.getScene().getWindow());
@@ -905,14 +907,12 @@ public class TerminalController implements FileProcessInterface {
         dialog.show();
     }
 
-    /**
-     * 将命令发送到终端
-     */
-    private void executeCommandFromHistory(String command) {
+    @Override
+    public void executeCommandFromHistory(String command) {
         if (channel != null && channel.isConnected()) {
             try {
                 // 发送命令 + 回车
-                ttyConnector.write(command);
+                ttyConnector.write(command + "\r\n");
 
                 // 让终端重获焦点
                 SwingUtilities.invokeLater(() -> {

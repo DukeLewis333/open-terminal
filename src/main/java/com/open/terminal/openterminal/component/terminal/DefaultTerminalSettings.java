@@ -6,11 +6,17 @@ import com.jediterm.terminal.ui.settings.DefaultSettingsProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-
+/**
+ * @description: 默认终端样式类
+ * @author huangjialong
+ * @date 2026/1/4
+ * @version 1.0
+ */
 public class DefaultTerminalSettings extends DefaultSettingsProvider {
     @Override
     public float getTerminalFontSize() {
-        return 15f; // 字体大小
+        // 字体大小
+        return 15f;
     }
 
     // 关闭鼠标事件报告

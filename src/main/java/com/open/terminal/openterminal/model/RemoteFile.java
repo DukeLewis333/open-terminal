@@ -3,7 +3,7 @@ package com.open.terminal.openterminal.model;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * @description: TODO
+ * @description: 远程文件数据对象
  * @author huangjialong
  * @date 2026/1/4 16:48
  * @version 1.0
@@ -14,7 +14,8 @@ public class RemoteFile {
     private final SimpleStringProperty permissions;
     private final SimpleStringProperty modificationTime;
 
-    private final String rawName; // 原始文件名(不含装饰)
+    // 原始文件名(不含装饰)
+    private final String rawName;
     private final boolean isDirectory;
 
     public RemoteFile(String fileName, String size, String permissions, String modificationTime, String rawName, boolean isDirectory) {

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @description:
+ * @description: 连接弹窗控制器
  * @author：dukelewis
  * @date: 2025/12/28
  * @Copyright： https://github.com/DukeLewis

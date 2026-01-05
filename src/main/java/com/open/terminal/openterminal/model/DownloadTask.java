@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * @description: TODO
+ * @description: 文件下载任务数据对象
  * @author huangjialong
  * @date 2026/1/4 16:42
  * @version 1.0

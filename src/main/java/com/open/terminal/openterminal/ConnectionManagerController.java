@@ -13,6 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * @description: 连接信息管理控制器
+ * @author：dukelewis
+ * @date: 2026/1/4
+ * @Copyright： https://github.com/DukeLewis
+ */
 public class ConnectionManagerController {
 
     @FXML private TableView<SavedConnection> connectionTable;
